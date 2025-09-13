@@ -1,0 +1,12 @@
+import type { Route } from "./+types/index";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "The friendly dev | Welcome" },
+    { name: "description", content: "custom wbesite development" },
+  ];
+}
+
+export default function Home() {
+  return <section>My app</section>;
+}
