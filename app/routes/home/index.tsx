@@ -1,4 +1,9 @@
+import type { Project } from "~/Types/types";
 import type { Route } from "./+types/index";
+import FeaturedProjects from "~/components/featuredProjects";
+import axios from "axios";
+
+
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -7,10 +12,35 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+
+export async function loader({ request }: Route.LoaderArgs): Promise<{ projects: Project[] }> {
+  try {
+    const response = await axios.get(`http://localhost:8000/projects`);
+    const data = response.data;
+
+    if (!data) {
+      throw new Error('Project not found');
+    }
+
+    return { projects: data }
+  }
+
+  catch (error) {
+    console.error('Error loading project:', error);
+    throw error;
+  }
+}
+
+
+const HomePage = ({ loaderData }: Route.ComponentProps) => {
+
+  const { projects } = loaderData;
+
   return (
     <>
-      Home page
+      <FeaturedProjects projects={projects} count={2}/>
     </>
   );
 }
+
+export default HomePage
