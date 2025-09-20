@@ -33,4 +33,4 @@ yarn-error.log*
 *.log
 
 /public/images
-/data
+/data/
