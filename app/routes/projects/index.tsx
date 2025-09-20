@@ -4,10 +4,20 @@ import type { Project } from "~/Types/types";
 import ProjectCard from "~/components/ProjectCard";
 
 export async function loader({ request }: Route.LoaderArgs): Promise<{ projects: Project[] }> {
-    const response = await axios.get("http://localhost:8000/projects");
-    const data = response.data;
+    try {
+        const response = await axios.get(`http://localhost:8000/projects`);
+        const data = response.data;
 
-    return { projects: data };
+        if (!data) {
+            throw new Error('Project not found');
+        }
+
+        return { projects: data };
+
+    } catch (error) {
+        console.error('Error loading project:', error);
+        throw error;
+    }
 }
 
 
