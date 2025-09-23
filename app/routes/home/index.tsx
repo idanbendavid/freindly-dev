@@ -3,6 +3,7 @@ import type { Route } from "./+types/index";
 import FeaturedProjects from "~/components/featuredProjects";
 import axios from "axios";
 import AboutPreview from "~/components/AboutPreview";
+import type { PostsMeta } from "~/Types/postsMeta";
 
 
 
